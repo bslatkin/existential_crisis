@@ -49,8 +49,6 @@
 </table>
 
 <script type="text/javascript">
-delete window.alert;  // Fix Chrome's weirdness
-
 var WINNER = false;
 var BOARD = [
   ['', '', ''],  // [column 0, column 1, column 2]
@@ -71,7 +69,7 @@ $('td').click(function(e) {
   if (!BOARD[row][column]) {
     BOARD[row][column] = COLOR;
   } else {
-    window.alert('Illegal move!');
+    alert('Illegal move!');
     return;
   }
 
@@ -102,7 +100,7 @@ $('td').click(function(e) {
     if (BOARD[i][0] &&
         BOARD[i][0] == BOARD[i][1] &&
         BOARD[i][1] == BOARD[i][2]) {
-      window.alert(BOARD[i][0] + ' has won!');
+      alert(BOARD[i][0] + ' has won!');
       WINNER = true;
       return;
     }
@@ -113,7 +111,7 @@ $('td').click(function(e) {
     if (BOARD[0][i] &&
         BOARD[0][i] == BOARD[1][i] &&
         BOARD[1][i] == BOARD[2][i]) {
-      window.alert(BOARD[0][i] + ' has won!');
+      alert(BOARD[0][i] + ' has won!');
       WINNER = true;
       return;
     }
@@ -123,14 +121,14 @@ $('td').click(function(e) {
   if (BOARD[0][0] &&
       BOARD[0][0] == BOARD[1][1] &&
       BOARD[1][1] == BOARD[2][2]) {
-    window.alert(BOARD[0][0] + ' has won!');
+    alert(BOARD[0][0] + ' has won!');
     WINNER = true;
     return;
   }
   if (BOARD[0][2] &&
       BOARD[0][2] == BOARD[1][1] &&
       BOARD[1][1] == BOARD[2][0]) {
-    window.alert(BOARD[0][2] + ' has won!');
+    alert(BOARD[0][2] + ' has won!');
     WINNER = true;
     return;
   }
