@@ -26,11 +26,29 @@ var Square = React.createClass({
 var WhoseTurn = React.createClass({
     render: function() {
         var turn = this.props.winner || this.props.turn;
+        var message = (
+            <span>
+                <span className={'turn-' + turn}>
+                    {turn}
+                </span>
+                {' '}should go
+            </span>
+        );
+        if (this.props.plays == 9) {
+            message = <span>Draw!</span>
+        } else if (this.props.winner) {
+            message = (
+                <span>
+                    <span className={'turn-' + turn}>
+                        {turn}
+                    </span>
+                    {' '}has won
+                </span>
+            );
+        }
         return (
-            <div className={'whose-turn ' + (this.props.winner ? 'won' : 'going')}>
-                <span className={'turn-' + turn}>{turn}</span>
-                <span className="happening"> should go</span>
-                <span className="winner"> has won</span>
+            <div className={'whose-turn ' + status}>
+                {message}
             </div>
         );
     }
@@ -43,6 +61,7 @@ var Board = React.createClass({
             board: [[null, null, null],
                     [null, null, null],
                     [null, null, null]],
+            plays: 0,
             turn: Turn.X,
             winner: null
         };
@@ -87,17 +106,14 @@ var Board = React.createClass({
         }
     },
     changeSquare: function(row, col) {
-        if (!!this.state.winner) {
-            // Already won
-            return;
+        if (!this.state.winner &&
+            this.state.board[row][col] === null) {
+            this.state.board[row][col] = this.state.turn;
+            this.state.plays += 1;
         }
-        if (!!this.state.board[row][col]) {
-            // Already played
-            return;
-        }
-        this.state.board[row][col] = this.state.turn;
         this.setState({
             board: this.state.board,
+            plays: this.state.plays,
             turn: this.state.turn == Turn.X ? Turn.O : Turn.X,
             winner: this.checkWinner()
         });
@@ -118,7 +134,10 @@ var Board = React.createClass({
         }
         return (
             <div class="everything">
-                <WhoseTurn turn={this.state.turn} winner={this.state.winner} />
+                <WhoseTurn
+                    plays={this.state.plays}
+                    turn={this.state.turn}
+                    winner={this.state.winner} />
                 <div className="board">
                     {squares}
                 </div>
