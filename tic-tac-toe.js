@@ -148,6 +148,9 @@ var Board = React.createClass({
 });
 
 
+React.initializeTouchEvents(true);
+
+
 React.renderComponent(
     <Board />,
     document.getElementById('content'));
