@@ -1,5 +1,4 @@
-
-
+# Copyright 2012 Brett Slatkin
 
 
 def run():
