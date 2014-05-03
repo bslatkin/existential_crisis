@@ -35,9 +35,7 @@ var WhoseTurn = React.createClass({
                 {' '}should go
             </span>
         );
-        if (this.props.plays == 9) {
-            message = <span>Draw!</span>
-        } else if (this.props.winner) {
+        if (this.props.winner) {
             message = (
                 <span>
                     <span className={'turn-' + turn}>
@@ -46,6 +44,8 @@ var WhoseTurn = React.createClass({
                     {' '}has won
                 </span>
             );
+        } else if (this.props.plays == 9) {
+            message = <span>Draw!</span>
         }
         return (
             <div className={'whose-turn ' + status}>
